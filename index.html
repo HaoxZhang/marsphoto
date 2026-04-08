@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mars.photo</title>
+    <title>Mars.photo | A Silent Chronicle</title>
     <style>
         * {
             margin: 0;
@@ -13,10 +13,11 @@
 
         body, html {
             height: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            /* 使用衬线体增加文学气息 */
+            font-family: "Optima", "Didot", "Georgia", serif; 
             background-color: #000;
             color: #fff;
-            overflow: hidden; /* 保持单页不滚动 */
+            overflow: hidden;
         }
 
         /* 背景层 */
@@ -26,15 +27,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* ❗ 这里已经指向你仓库里的 mars_bg.png ❗ */
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
+            /* 依然指向你的图片 mars_bg.png */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
                         url('mars_bg.png');
             background-size: cover;
             background-position: center;
             z-index: 1;
         }
 
-        /* 内容居中 */
+        /* 主体内容 */
         .content {
             position: relative;
             z-index: 2;
@@ -44,30 +45,34 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
         h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 0.5rem;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 200;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
             text-transform: lowercase;
         }
 
         h1 span {
-            color: #ff5722; /* 火星橙 */
+            color: #d35400; /* 深火星橙 */
+            font-weight: 500;
         }
 
-        p {
+        .poetry {
             font-size: 1.1rem;
             font-weight: 300;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin-bottom: 4rem;
+            line-height: 1.8;
+            font-style: italic;
         }
 
-        /* 邮箱表单样式 */
+        /* 极简下划线表单 */
         .form-container {
             width: 100%;
             max-width: 450px;
@@ -75,13 +80,13 @@
 
         form {
             display: flex;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 6px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 8px;
+            transition: border-color 0.6s ease;
+        }
+
+        form:focus-within {
+            border-bottom: 1px solid #d35400;
         }
 
         input[type="email"] {
@@ -89,57 +94,50 @@
             background: transparent;
             border: none;
             outline: none;
-            padding: 12px 25px;
+            padding: 10px 0;
             color: white;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
         }
 
         button {
-            background: #fff;
-            color: #000;
+            background: transparent;
+            color: #fff;
             border: none;
-            padding: 12px 30px;
-            border-radius: 40px;
-            font-weight: 600;
+            padding: 10px 0 10px 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
+            transition: opacity 0.3s;
+            font-weight: 600;
         }
 
         button:hover {
-            background: #ff5722;
-            color: white;
+            color: #d35400;
         }
 
         footer {
             position: absolute;
-            bottom: 30px;
+            bottom: 40px;
             z-index: 2;
             width: 100%;
             text-align: center;
-            font-size: 0.7rem;
-            opacity: 0.4;
-            letter-spacing: 1px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 5px;
+            text-transform: uppercase;
         }
 
-        /* 移动端适配 */
         @media (max-width: 480px) {
-            form {
-                flex-direction: column;
-                background: transparent;
-                border: none;
-                backdrop-filter: none;
-            }
-            input[type="email"] {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 50px;
-                margin-bottom: 10px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-            }
+            .poetry { font-size: 0.9rem; letter-spacing: 1px; }
         }
     </style>
 </head>
@@ -149,18 +147,22 @@
 
     <div class="content">
         <h1>mars<span>.photo</span></h1>
-        <p>加入候补名单，抢先获取高清火星影像存档。</p>
+        
+        <p class="poetry">
+            To gaze upon the red dust is to witness the silence of time.<br>
+            A chronicle of a world once familiar, now echoing in the void.
+        </p>
 
         <div class="form-container">
             <form action="https://formspree.io/f/mlgovlky" method="POST">
-                <input type="email" name="email" placeholder="输入你的邮箱地址" required>
-                <button type="submit">立即加入</button>
+                <input type="email" name="email" placeholder="Leave your mark in the dust..." required>
+                <button type="submit">Join</button>
             </form>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 MARS.PHOTO | IMAGES STORED ON GITHUB
+        Dust to Dust &bull; &copy; 2026 Mars.photo
     </footer>
 
 </body>
